@@ -1,17 +1,17 @@
 import streamlit as st
-import funciones_pdf  
-st.title("kiosquitotito")
+import funciones_pdf 
 
-cliente_nombre = st.text_input("Nombre del Cliente:", value="Juli")
+st.title("Kiosquitotito")
+
+cliente_nombre = st.text_input("Nombre del Cliente:")
 producto_elegido = st.selectbox("Seleccioná el producto:", funciones_pdf.productos)
-cantidad = st.number_input("Cantidad de unidades:", min_value=1, step=1, value=3)
+cantidad = st.number_input("Cantidad de unidades:", min_value=1, step=1, value=1)
 forma_pago = st.radio("Forma de pago:", [funciones_pdf.EFECTIVO, funciones_pdf.TRANSFERENCIA])
 
 col1, col2 = st.columns(2)
-with col1:
-    nro_factura = st.number_input("N° de Comprobante:", min_value=1, value=1001, step=1)
-with col2:
-    fecha_actual = st.text_input("Fecha:", value="05/11/2026")
+
+nro_factura = col1.text("N° de Comprobante: 1001")
+fecha_actual = col2.text_input("Fecha:", value="05/11/2026")
 
 pos = funciones_pdf.buscar_posicion(funciones_pdf.productos, producto_elegido)
 precio_unitario = funciones_pdf.precios[pos]
@@ -49,3 +49,4 @@ st.download_button(
     file_name=f"presupuesto_{nro_factura}.pdf",
     mime="application/pdf"
 )
+
